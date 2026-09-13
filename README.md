@@ -1,103 +1,132 @@
-🩺 Multiple Disease Prediction System – ML-Powered Health Risk Screening
-An interactive Streamlit dashboard for predicting the risk of Liver Disease, Chronic Kidney Disease, and Parkinson's Disease using patient clinical data.
+# 🩺 Multiple Disease Prediction System – ML-Powered Health Risk Screening
 
-This project turns three separate clinical datasets into a single unified Python-based prediction dashboard using Streamlit, Pandas, NumPy, Scikit-learn, and XGBoost.
+An interactive Streamlit dashboard for predicting the risk of **Liver Disease**, **Chronic Kidney Disease**, and **Parkinson's Disease** using patient clinical data.
 
-📌 Project Overview
+This project turns three separate clinical datasets into a single unified Python-based prediction dashboard using **Streamlit, Pandas, NumPy, Scikit-learn, and XGBoost**.
+
+---
+
+## 📌 Project Overview
+
 Multiple Disease Prediction System provides an interactive platform to estimate a patient's risk of three different diseases from their lab/clinical measurements, using models trained and evaluated on real diagnostic datasets.
 
 The dashboard includes:
 
-Data cleaning and preprocessing for three independent medical datasets
-Model training and evaluation (Logistic Regression, Random Forest, XGBoost)
-Automatic selection of the best-performing model per disease
-Interactive patient-input forms
-Real-time probability-based risk prediction (Low / Moderate / High)
-Exploratory Data Analysis (class balance + correlation heatmaps)
-The application uses three datasets: the Indian Liver Patient Dataset, the UCI Chronic Kidney Disease Dataset, and the UCI Parkinson's Disease Dataset.
+- Data cleaning and preprocessing for three independent medical datasets
+- Model training and evaluation (Logistic Regression, Random Forest, XGBoost)
+- Automatic selection of the best-performing model per disease
+- Interactive patient-input forms
+- Real-time probability-based risk prediction (Low / Moderate / High)
+- Exploratory Data Analysis (class balance + correlation heatmaps)
 
-🚀 Features
-🏠 1. Overview
+The application uses three datasets: the **Indian Liver Patient Dataset**, the **UCI Chronic Kidney Disease Dataset**, and the **UCI Parkinson's Disease Dataset**.
+
+---
+
+## 🚀 Features
+
+### 🏠 Overview
+
 The sidebar lets you pick any of the three diseases and switch between them instantly:
 
-Liver Disease
-Kidney Disease
-Parkinson's Disease
+- Liver Disease
+- Kidney Disease
+- Parkinson's Disease
+
 Each page loads its own dedicated trained model, scaler, and feature set.
 
-🧹 2. Data Cleaning Summary
+### 🧹 Data Cleaning Summary
+
 The project documents and applies the major preprocessing steps for each dataset separately.
 
-Cleaning steps:
-Load each disease's raw CSV file.
-Encode categorical text fields (Gender, ckd/notckd, yes/no, normal/abnormal) into numeric form.
-Convert kidney columns that were stored as text but are numeric (pcv, wc, rc) back into numbers.
-Impute missing values using column medians.
-Standardize target labels so 1 = disease present, 0 = healthy across all three datasets.
-Drop identifier columns that carry no predictive value (id, name).
-Dataset Targets
-Disease	Target Column	Encoding
-Liver	Dataset	1 = disease, 2 = healthy → remapped to 1 / 0
-Kidney	classification	ckd / notckd → 1 / 0
-Parkinson's	status	already 0 / 1
-📊 3. Model Training & Evaluation
+**Cleaning steps:**
+
+- Load each disease's raw CSV file
+- Encode categorical text fields (Gender, ckd/notckd, yes/no, normal/abnormal) into numeric form
+- Convert kidney columns that were stored as text but are numeric (`pcv`, `wc`, `rc`) back into numbers
+- Impute missing values using column medians
+- Standardize target labels so `1 = disease present`, `0 = healthy` across all three datasets
+- Drop identifier columns that carry no predictive value (`id`, `name`)
+
+**Dataset targets:**
+
+| Disease | Target Column | Encoding |
+|---|---|---|
+| Liver | `Dataset` | 1 = disease, 2 = healthy → remapped to 1 / 0 |
+| Kidney | `classification` | ckd / notckd → 1 / 0 |
+| Parkinson's | `status` | already 0 / 1 |
+
+### 📊 Model Training & Evaluation
+
 For every disease, three algorithms are trained and compared on the same 80/20 train-test split:
 
-Logistic Regression
-Random Forest
-XGBoost
-Metrics Captured
-Accuracy
-Precision
-Recall
-F1-score
-ROC-AUC
-5-fold Cross-Validation F1
-Confusion Matrix
+- Logistic Regression
+- Random Forest
+- XGBoost
+
+**Metrics captured:**
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- ROC-AUC
+- 5-fold Cross-Validation F1
+- Confusion Matrix
+
 The best-performing model (highest test F1-score) is automatically selected and saved per disease, along with its scaler and feature order, so predictions on new patient data are always consistent with training.
 
-🧠 4. Prediction Pages
+### 🧠 Prediction Pages
+
 Each disease has its own input form tailored to its real-world clinical fields.
 
-🫀 Liver Disease
+**🫀 Liver Disease**
 Age, Gender, Total/Direct Bilirubin, Alkaline Phosphotase, ALT, AST, Total Proteins, Albumin, Albumin/Globulin Ratio
 
-🧫 Kidney Disease
+**🧫 Kidney Disease**
 Age, Blood Pressure, Specific Gravity, Albumin, Sugar, Red Blood Cells, Pus Cells, Pus Cell Clumps, Bacteria, Blood Glucose, Blood Urea, Serum Creatinine, Sodium, Potassium, Hemoglobin, Packed Cell Volume, WBC/RBC Count, Hypertension, Diabetes, Coronary Artery Disease, Appetite, Pedal Edema, Anemia
 
-🧠 Parkinson's Disease
+**🧠 Parkinson's Disease**
 22 voice-acoustic measurements (MDVP jitter/shimmer variants, NHR, HNR, RPDE, DFA, spread1/2, D2, PPE) extracted from sustained vowel recordings
 
 Each page returns:
 
-A Yes/No prediction
-A disease probability percentage
-A Low / Moderate / High risk level
-A visual probability bar
-An expandable "Model performance details" panel showing the winning model's test metrics
-📈 5. Exploratory Data Analysis
+- A Yes/No prediction
+- A disease probability percentage
+- A Low / Moderate / High risk level
+- A visual probability bar
+- An expandable "Model performance details" panel showing the winning model's test metrics
+
+### 📈 Exploratory Data Analysis
+
 A standalone EDA script generates supporting visuals for each disease:
 
-Class Balance Chart — shows how many disease vs. healthy cases exist per dataset, which matters for interpreting accuracy on imbalanced data
-Correlation Heatmap — shows which clinical features move together (e.g. creatinine and blood urea in kidney disease)
+- **Class Balance Chart** — shows how many disease vs. healthy cases exist per dataset, which matters for interpreting accuracy on imbalanced data
+- **Correlation Heatmap** — shows which clinical features move together (e.g. creatinine and blood urea in kidney disease)
+
 Plots are saved as PNGs for use in reports or presentations.
 
-Note: This is a screening aid built for educational purposes and is not a substitute for professional medical diagnosis.
+> **Note:** This is a screening aid built for educational purposes and is **not** a substitute for professional medical diagnosis.
 
-🛠️ Technologies Used
-Python
-Pandas
-NumPy
-Scikit-learn
-XGBoost
-Streamlit
-Matplotlib
-Seaborn
-Joblib
-Data Cleaning & Preprocessing
-Supervised Classification
-Model Evaluation & Selection
-📂 Project Structure
+---
+
+## 🛠️ Technologies Used
+
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- XGBoost
+- Streamlit
+- Matplotlib
+- Seaborn
+- Joblib
+
+---
+
+## 📂 Project Structure
+
+```
 Multiple_Disease_Prediction/
 │
 ├── data/
@@ -106,9 +135,18 @@ Multiple_Disease_Prediction/
 │   └── parkinsons.csv
 │
 ├── models/                     # generated by train_models.py
-│   ├── liver_model.pkl / liver_scaler.pkl / liver_features.json / liver_metrics.json
-│   ├── kidney_model.pkl / kidney_scaler.pkl / kidney_features.json / kidney_metrics.json
-│   └── parkinsons_model.pkl / parkinsons_scaler.pkl / parkinsons_features.json / parkinsons_metrics.json
+│   ├── liver_model.pkl
+│   ├── liver_scaler.pkl
+│   ├── liver_features.json
+│   ├── liver_metrics.json
+│   ├── kidney_model.pkl
+│   ├── kidney_scaler.pkl
+│   ├── kidney_features.json
+│   ├── kidney_metrics.json
+│   ├── parkinsons_model.pkl
+│   ├── parkinsons_scaler.pkl
+│   ├── parkinsons_features.json
+│   └── parkinsons_metrics.json
 │
 ├── outputs/                    # generated by eda.py
 │
@@ -120,107 +158,163 @@ Multiple_Disease_Prediction/
 ├── app.py                      # Streamlit application
 ├── requirements.txt
 └── README.md
+```
 
-The raw datasets should remain in the data/ folder unless the DATA_DIR path is modified.
+The raw datasets should remain in the `data/` folder unless the `DATA_DIR` path is modified.
 
-⚙️ Installation
-1. Clone the repository
+---
+
+## ⚙️ Installation
+
+**1. Clone the repository**
+
+```bash
 git clone https://github.com/yourusername/Multiple_Disease_Prediction.git
-2. Navigate to the project folder
+```
+
+**2. Navigate to the project folder**
+
+```bash
 cd Multiple_Disease_Prediction
-3. Create and activate a virtual environment
+```
+
+**3. Create and activate a virtual environment**
+
+```bash
 python -m venv venv
 source venv/bin/activate      # Windows: venv\Scripts\activate
-4. Install the required libraries
+```
+
+**4. Install the required libraries**
+
+```bash
 pip install -r requirements.txt
-▶️ Run the Application
-Step 1 — Train the models (required, run once)
+```
+
+---
+
+## ▶️ Run the Application
+
+**Step 1 — Train the models (required, run once)**
+
+```bash
 cd src
 python train_models.py
 cd ..
-Step 2 — Generate EDA plots (optional)
+```
+
+**Step 2 — Generate EDA plots (optional)**
+
+```bash
 cd src
 python eda.py
 cd ..
-Step 3 — Launch the dashboard
-streamlit run app.py
-The application will open in your browser at http://localhost:8501.
+```
 
-📊 Datasets
+**Step 3 — Launch the dashboard**
+
+```bash
+streamlit run app.py
+```
+
+The application will open in your browser at `http://localhost:8501`.
+
+---
+
+## 📊 Datasets
+
 The project uses:
 
-Indian Liver Patient Dataset (583 records)
-UCI Chronic Kidney Disease Dataset (400 records)
-UCI Parkinson's Disease Dataset (195 records)
+- Indian Liver Patient Dataset (583 records)
+- UCI Chronic Kidney Disease Dataset (400 records)
+- UCI Parkinson's Disease Dataset (195 records)
+
 Dataset files:
 
-indian_liver_patient.csv
-kidney_disease.csv
-parkinsons.csv
+- `indian_liver_patient.csv`
+- `kidney_disease.csv`
+- `parkinsons.csv`
+
 Each dataset contains patient-level clinical or acoustic measurements alongside a diagnosis label used as the prediction target.
 
-📈 Key Data Analysis Techniques
-This project demonstrates practical machine learning and analytics techniques such as:
+---
 
-Data Cleaning
-Missing-value imputation
-Categorical encoding
-Text-to-numeric conversion
-Target label standardization
-Feature Scaling
-StandardScaler
-Model Training & Comparison
-Logistic Regression
-Random Forest
-XGBoost
-Model Evaluation
-accuracy_score(), precision_score(), recall_score(), f1_score()
-roc_auc_score(), confusion_matrix()
-cross_val_score() (5-fold)
-Correlation Analysis
-corr()
-Used to examine relationships between clinical features within each disease.
+## 📈 Key Data Analysis Techniques
 
-Interactive Prediction
-Streamlit forms feed live patient data through the saved scaler and model to produce real-time probability-based predictions.
+**Data Cleaning**
+- Missing-value imputation
+- Categorical encoding
+- Text-to-numeric conversion
+- Target label standardization
 
-💡 Business / Analytical Value
+**Feature Scaling**
+- `StandardScaler`
+
+**Model Training & Comparison**
+- Logistic Regression
+- Random Forest
+- XGBoost
+
+**Model Evaluation**
+- `accuracy_score()`, `precision_score()`, `recall_score()`, `f1_score()`
+- `roc_auc_score()`, `confusion_matrix()`
+- `cross_val_score()` (5-fold)
+
+**Correlation Analysis**
+- `corr()` — used to examine relationships between clinical features within each disease
+
+**Interactive Prediction**
+- Streamlit forms feed live patient data through the saved scaler and model to produce real-time probability-based predictions
+
+---
+
+## 💡 Business / Analytical Value
+
 The project demonstrates how clinical datasets can be converted into an accessible risk-screening tool.
 
 Potential applications include:
 
-Early risk flagging for liver, kidney, and Parkinson's disease
-Supporting preliminary screening before clinical testing
-Comparing model performance across different classification algorithms
-Understanding which clinical features most strongly signal disease risk
-Providing an educational example of an end-to-end ML deployment pipeline
-🎯 Skills Demonstrated
-This project showcases practical experience in:
+- Early risk flagging for liver, kidney, and Parkinson's disease
+- Supporting preliminary screening before clinical testing
+- Comparing model performance across different classification algorithms
+- Understanding which clinical features most strongly signal disease risk
+- Providing an educational example of an end-to-end ML deployment pipeline
 
-Python for Machine Learning
-Pandas & NumPy
-Data Cleaning & Preprocessing
-Supervised Classification (Logistic Regression, Random Forest, XGBoost)
-Model Evaluation & Selection
-Feature Scaling
-Streamlit Dashboard Development
-Model Persistence (joblib)
-Exploratory Data Analysis
-Healthcare Data Analytics
-🔮 Future Improvements
-Potential improvements include:
+---
 
-Hyperparameter tuning (GridSearchCV / Optuna) for each model
-SHAP-based feature importance explanations per prediction
-Handling class imbalance with SMOTE for the kidney/liver datasets
-Batch prediction via CSV upload
-User authentication for clinical use
-Deployment through Streamlit Community Cloud
-Model monitoring and periodic retraining pipeline
-Additional diseases (diabetes, heart disease) added as new tabs
-📌 Project Purpose
+## 🎯 Skills Demonstrated
+
+- Python for Machine Learning
+- Pandas & NumPy
+- Data Cleaning & Preprocessing
+- Supervised Classification (Logistic Regression, Random Forest, XGBoost)
+- Model Evaluation & Selection
+- Feature Scaling
+- Streamlit Dashboard Development
+- Model Persistence (joblib)
+- Exploratory Data Analysis
+- Healthcare Data Analytics
+
+---
+
+## 🔮 Future Improvements
+
+- Hyperparameter tuning (GridSearchCV / Optuna) for each model
+- SHAP-based feature importance explanations per prediction
+- Handling class imbalance with SMOTE for the kidney/liver datasets
+- Batch prediction via CSV upload
+- User authentication for clinical use
+- Deployment through Streamlit Community Cloud
+- Model monitoring and periodic retraining pipeline
+- Additional diseases (diabetes, heart disease) added as new tabs
+
+---
+
+## 📌 Project Purpose
+
 This project was developed to demonstrate an end-to-end machine learning workflow, starting from raw clinical data and progressing through:
 
+```
 Raw Datasets (Liver, Kidney, Parkinson's)
      ↓
 Data Cleaning & Preprocessing
@@ -236,11 +330,17 @@ Model Persistence
 Interactive Prediction Dashboard
      ↓
 Risk-Level Insights
-🖥️ Application Navigation
+```
+
+---
+
+## 🖥️ Application Navigation
+
 The Streamlit application is organized into three disease-specific sections:
 
+```
 🩺 Multiple Disease Prediction
-
 ├── 🫀 Liver Disease Prediction
 ├── 🧫 Kidney Disease Prediction
 └── 🧠 Parkinson's Disease Prediction
+```
